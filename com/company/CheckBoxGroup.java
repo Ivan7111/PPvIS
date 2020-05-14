@@ -15,8 +15,6 @@ public class CheckBoxGroup implements ComponentLinker{
     private void showAlertNotExist() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
-
-        // Header Text: null
         alert.setHeaderText(null);
         alert.setContentText("This option does not exist!");
 

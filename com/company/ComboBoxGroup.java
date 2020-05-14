@@ -17,6 +17,7 @@ public class ComboBoxGroup implements ComponentLinker{
         alert.setTitle("Alert");
         alert.setHeaderText(null);
         alert.setContentText("This element already exist!");
+		
         alert.showAndWait();
     }
 

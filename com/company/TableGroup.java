@@ -20,16 +20,12 @@ public class TableGroup implements ComponentLinker{
 
         TextField textField5 = new TextField();
         textField5.setPrefColumnCount(11);
-        textField5.setLayoutY(20);
-        textField5.setLayoutX(20);
 
         ObservableList<Table> data = FXCollections.observableArrayList();
 
         TableView<Table> table1 = new TableView<>();
 
         Button button6 = new Button("To table");
-        button6.setLayoutY(60);
-        button6.setLayoutX(20);
         button6.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -39,8 +35,6 @@ public class TableGroup implements ComponentLinker{
         });
 
         Button button7 = new Button("To the right");
-        button7.setLayoutY(100);
-        button7.setLayoutX(20);
         button7.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -54,8 +48,6 @@ public class TableGroup implements ComponentLinker{
         });
 
         Button button8 = new Button("To the left");
-        button8.setLayoutY(140);
-        button8.setLayoutX(20);
         button8.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -70,8 +62,6 @@ public class TableGroup implements ComponentLinker{
 
         table1.setPrefWidth(250);
         table1.setPrefHeight(200);
-        table1.setLayoutY(60);
-        table1.setLayoutX(100);
 
         TableColumn<Table, String> column11 = new TableColumn<>("First column");
 
