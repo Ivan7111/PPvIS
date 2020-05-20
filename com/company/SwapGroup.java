@@ -16,31 +16,31 @@ public class SwapGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField2 = new TextField();
-        textField2.setPrefColumnCount(15);
+        TextField nameField = new TextField();
+        nameField.setPrefColumnCount(15);
 
-        Button button3 = new Button("Switch text");
-        Button button2 = new Button("Set text");
-        button2.setOnAction(new EventHandler<ActionEvent>() {
+        Button switchButton = new Button("Switch text");
+        Button setButton = new Button("Set text");
+        setButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                button3.setText(textField2.getText());
-                textField2.clear();
+                switchButton.setText(nameField.getText());
+                nameField.clear();
             }
         });
 
-        button3.setOnAction(new EventHandler<ActionEvent>() {
+        switchButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String str;
-                str = button2.getText();
-                button2.setText(button3.getText());
-                button3.setText(str);
+                str = setButton.getText();
+                setButton.setText(switchButton.getText());
+                switchButton.setText(str);
             }
         });
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField2, button2, button3);
+        hBox.getChildren().addAll(nameField, setButton, switchButton);
         hBox.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }

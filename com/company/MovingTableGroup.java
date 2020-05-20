@@ -16,7 +16,7 @@ public class MovingTableGroup implements ComponentLinker{
 
     private HBox hBox;
 
-    private static Thread thr;
+    private static Thread otherThread;
 
     private ObservableList<ObservableList<String>> moveLeft(ObservableList<ObservableList<String>> data){
         int Y = data.size();
@@ -108,26 +108,26 @@ public class MovingTableGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField6 = new TextField();
-        textField6.setPrefColumnCount(3);
+        TextField xCoordinateField = new TextField();
+        xCoordinateField.setPrefColumnCount(3);
 
-        TextField textField7 = new TextField();
-        textField7.setPrefColumnCount(3);
+        TextField yCoordinateField = new TextField();
+        yCoordinateField.setPrefColumnCount(3);
 
-        TableView table2 = new TableView();
-        table2.setPrefWidth(350);
-        table2.setPrefHeight(200);
+        TableView movingTable = new TableView();
+        movingTable.setPrefWidth(350);
+        movingTable.setPrefHeight(200);
 
-        ObservableList<ObservableList<String>> data1 = FXCollections.observableArrayList();
+        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
-        Button button9 = new Button("Gen table");
-        button9.setOnAction(new EventHandler<ActionEvent>() {
+        Button generateButton = new Button("Gen table");
+        generateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                table2.getColumns().clear();
-                data1.clear();
-                int X = Integer.valueOf(textField6.getText());
-                int Y = Integer.valueOf(textField7.getText());
+                movingTable.getColumns().clear();
+                data.clear();
+                int X = Integer.valueOf(xCoordinateField.getText());
+                int Y = Integer.valueOf(yCoordinateField.getText());
                 ObservableList<String> temp = FXCollections.observableArrayList();
                 for(int i = 0; i < X; i++){
                     final int f = i;
@@ -139,48 +139,48 @@ public class MovingTableGroup implements ComponentLinker{
                             return new SimpleStringProperty(param.getValue().get(f).toString());
                         }
                     });
-                    table2.getColumns().add(column);
+                    movingTable.getColumns().add(column);
                 }
                 int ctr = 0;
                 for(int i = 0; i < Y; i++) {
-                    ObservableList<String> t = FXCollections.observableArrayList();
+                    ObservableList<String> tmp = FXCollections.observableArrayList();
                     for(int j = 0; j < X; j++){
                         if(ctr < 4 && Math.random()*100 > 70){
-                            t.add("Text");
+                            tmp.add("Text");
                             ctr++;
                         }
                         else {
-                            t.add("");
+                            tmp.add("");
                         }
                     }
-                    data1.add(t);
+                    data.add(tmp);
                 }
-                table2.setItems(data1);
+                movingTable.setItems(data);
             }
         });
 
-        Button button10 = new Button("Start movement");
-        button10.setOnAction(new EventHandler<ActionEvent>() {
+        Button startButton = new Button("Start movement");
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                thr = new Thread(new Runnable() {
+                otherThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        int Y = data1.size();
+                        int Y = data.size();
                         ObservableList<ObservableList<String>> temp;
                         while(true) {
-                            temp = moveLeft(data1);
+                            temp = moveLeft(data);
                             for(int i = 0; i < Y; i++){
-                                data1.set(i, temp.get(i));
+                                data.set(i, temp.get(i));
                             }
                             try{
                                 Thread.sleep(500);
                             }catch (InterruptedException e){
                                 return;
                             }
-                            temp = moveUp(data1);
+                            temp = moveUp(data);
                             for(int i = 0; i < Y; i++){
-                                data1.set(i, temp.get(i));
+                                data.set(i, temp.get(i));
                             }
                             try {
                                 Thread.sleep(500);
@@ -190,23 +190,23 @@ public class MovingTableGroup implements ComponentLinker{
                         }
                     }
                 });
-                thr.setDaemon(true);
-                thr.start();
+                otherThread.setDaemon(true);
+                otherThread.start();
             }
         });
 
-        Button button11 = new Button("Stop movement");
-        button11.setOnAction(new EventHandler<ActionEvent>() {
+        Button stopButton = new Button("Stop movement");
+        stopButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(thr.isAlive()){
-                    thr.interrupt();
+                if(otherThread.isAlive()){
+                    otherThread.interrupt();
                 }
             }
         });
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField6, textField7, button9, button10, button11, table2);
+        hBox.getChildren().addAll(xCoordinateField, yCoordinateField, generateButton, startButton, stopButton, movingTable);
         hBox.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }

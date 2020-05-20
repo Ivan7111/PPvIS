@@ -18,64 +18,64 @@ public class TableGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField5 = new TextField();
-        textField5.setPrefColumnCount(11);
+        TextField nameField = new TextField();
+        nameField.setPrefColumnCount(11);
 
         ObservableList<Table> data = FXCollections.observableArrayList();
 
-        TableView<Table> table1 = new TableView<>();
+        TableView<Table> table = new TableView<>();
 
-        Button button6 = new Button("To table");
-        button6.setOnAction(new EventHandler<ActionEvent>() {
+        Button toTable = new Button("To table");
+        toTable.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                data.add(new Table(textField5.getText(), ""));
-                textField5.clear();
+                data.add(new Table(nameField.getText(), ""));
+                nameField.clear();
             }
         });
 
-        Button button7 = new Button("To the right");
-        button7.setOnAction(new EventHandler<ActionEvent>() {
+        Button moveRight = new Button("To the right");
+        moveRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Table selectedItem = table1.getSelectionModel().getSelectedItem();
+                Table selectedItem = table.getSelectionModel().getSelectedItem();
                 if(!selectedItem.getFirstColumn().equals("")) {
                     selectedItem.setSecondColumn(selectedItem.getFirstColumn());
                     selectedItem.setFirstColumn("");
-                    table1.refresh();
+                    table.refresh();
                 }
             }
         });
 
-        Button button8 = new Button("To the left");
-        button8.setOnAction(new EventHandler<ActionEvent>() {
+        Button moveLeft = new Button("To the left");
+        moveLeft.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Table selectedItem = table1.getSelectionModel().getSelectedItem();
+                Table selectedItem = table.getSelectionModel().getSelectedItem();
                 if(!selectedItem.getSecondColumn().equals("")) {
                     selectedItem.setFirstColumn(selectedItem.getSecondColumn());
                     selectedItem.setSecondColumn("");
-                    table1.refresh();
+                    table.refresh();
                 }
             }
         });
 
-        table1.setPrefWidth(250);
-        table1.setPrefHeight(200);
+        table.setPrefWidth(250);
+        table.setPrefHeight(200);
 
-        TableColumn<Table, String> column11 = new TableColumn<>("First column");
+        TableColumn<Table, String> leftColumn = new TableColumn<>("First column");
 
-        TableColumn<Table, String> column12 = new TableColumn<>("Second column");
+        TableColumn<Table, String> rightColumn = new TableColumn<>("Second column");
 
-        column11.setCellValueFactory(new PropertyValueFactory<>("FirstColumn"));
-        column12.setCellValueFactory(new PropertyValueFactory<>("SecondColumn"));
+        leftColumn.setCellValueFactory(new PropertyValueFactory<>("FirstColumn"));
+        rightColumn.setCellValueFactory(new PropertyValueFactory<>("SecondColumn"));
 
-        table1.setItems(data);
+        table.setItems(data);
 
-        table1.getColumns().addAll(column11, column12);
+        table.getColumns().addAll(leftColumn, rightColumn);
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField5, button6, button7, button8, table1);
+        hBox.getChildren().addAll(nameField, toTable, moveRight, moveLeft, table);
         hBox.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }

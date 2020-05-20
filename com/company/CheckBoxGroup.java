@@ -25,42 +25,42 @@ public class CheckBoxGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField4 = new TextField();
-        textField4.setPrefColumnCount(11);
+        TextField nameField = new TextField();
+        nameField.setPrefColumnCount(11);
 
-        Vector<String> vector3 = new Vector<>();
-        CheckBox checkBox1 = new CheckBox("Option 1");
-        vector3.addElement(checkBox1.getText());
+        ArrayList<String> optionList = new ArrayList<>();
+        CheckBox option1 = new CheckBox("Option 1");
+        optionList.add(option1.getText());
 
-        CheckBox checkBox2 = new CheckBox("Option 2");
-        vector3.addElement(checkBox2.getText());
+        CheckBox option2 = new CheckBox("Option 2");
+        optionList.add(option2.getText());
 
-        CheckBox checkBox3 = new CheckBox("Option 3");
-        vector3.addElement(checkBox3.getText());
+        CheckBox option3 = new CheckBox("Option 3");
+        optionList.add(option3.getText());
 
-        Button button5 = new Button("Choose");
-        button5.setOnAction(new EventHandler<ActionEvent>() {
+        Button chooseButton = new Button("Choose");
+        chooseButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String str = textField4.getText();
-                if(!vector3.contains(str)){
+                String tmp = nameField.getText();
+                if(!optionList.contains(tmp)){
                     showAlertNotExist();
                     return;
                 }
-                if(vector3.indexOf(str) == 0){
-                    checkBox1.fire();
+                if(optionList.indexOf(tmp) == 0){
+                    option1.fire();
                 }
-                if(vector3.indexOf(str) == 1){
-                    checkBox2.fire();
+                if(optionList.indexOf(tmp) == 1){
+                    option2.fire();
                 }
-                if(vector3.indexOf(str) == 2){
-                    checkBox3.fire();
+                if(optionList.indexOf(tmp) == 2){
+                    option3.fire();
                 }
             }
         });
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField4, checkBox1, checkBox2, checkBox3, button5);
+        hBox.getChildren().addAll(nameField, option1, option2, option3, chooseButton);
         hBox.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }

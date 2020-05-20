@@ -17,7 +17,6 @@ public class ComboBoxGroup implements ComponentLinker{
         alert.setTitle("Alert");
         alert.setHeaderText(null);
         alert.setContentText("This element already exist!");
-		
         alert.showAndWait();
     }
 
@@ -25,28 +24,28 @@ public class ComboBoxGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField1 = new TextField();
-        textField1.setPrefColumnCount(15);
+        TextField nameField = new TextField();
+        nameField.setPrefColumnCount(15);
 
-        ComboBox<String> comboBox1 = new ComboBox<>();
+        ComboBox<String> nameBox = new ComboBox<>();
 
-        Vector<String> vector1 = new Vector<>();
-        Button button1 = new Button("Add to ComboBox");
-        button1.setOnAction(new EventHandler<ActionEvent>() {
+        ArrayList<String> optList = new ArrayList<>();
+        Button addToComboBox = new Button("Add to ComboBox");
+        addToComboBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(vector1.contains(textField1.getText())){
+                if(optList.contains(nameField.getText())){
                     showAlertAlreadyExist();
                     return;
                 }
-                vector1.addElement(textField1.getText());
-                comboBox1.getItems().addAll(textField1.getText());
-                textField1.clear();
+                optList.add(nameField.getText());
+                nameBox.getItems().addAll(nameField.getText());
+                nameField.clear();
             }
         });
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField1, comboBox1, button1);
+        hBox.getChildren().addAll(nameField, nameBox, addToComboBox);
         hBox.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }

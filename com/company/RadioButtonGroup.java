@@ -25,47 +25,47 @@ public class RadioButtonGroup implements ComponentLinker{
     public void link() {
         hBox = new HBox();
 
-        TextField textField3 = new TextField();
-        textField3.setPrefColumnCount(11);
+        TextField nameField = new TextField();
+        nameField.setPrefColumnCount(11);
 
-        Vector<String> vector2 = new Vector<>();
-        ToggleGroup tGroup1 = new ToggleGroup();
-        RadioButton rButton1 = new RadioButton("Option 1");
-        rButton1.setToggleGroup(tGroup1);
-        rButton1.setSelected(true);
-        vector2.addElement(rButton1.getText());
+        ArrayList<String> optionList = new ArrayList<>();
+        ToggleGroup toggleGroup = new ToggleGroup();
+        RadioButton option1 = new RadioButton("Option 1");
+        option1.setToggleGroup(toggleGroup);
+        option1.setSelected(true);
+        optionList.add(option1.getText());
 
-        RadioButton rButton2 = new RadioButton("Option 2");
-        rButton2.setToggleGroup(tGroup1);
-        vector2.addElement(rButton2.getText());
+        RadioButton option2 = new RadioButton("Option 2");
+        option2.setToggleGroup(toggleGroup);
+        optionList.add(option2.getText());
 
-        RadioButton rButton3 = new RadioButton("Option 3");
-        rButton3.setToggleGroup(tGroup1);
-        vector2.addElement(rButton3.getText());
+        RadioButton option3 = new RadioButton("Option 3");
+        option3.setToggleGroup(toggleGroup);
+        optionList.add(option3.getText());
 
-        Button button4 = new Button("Choose");
-        button4.setOnAction(new EventHandler<ActionEvent>() {
+        Button chooseButton = new Button("Choose");
+        chooseButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String str = textField3.getText();
-                if(!vector2.contains(str)){
+                String tmp = nameField.getText();
+                if(!optionList.contains(tmp)){
                     showAlertNotExist();
                     return;
                 }
-                if(vector2.indexOf(str) == 0){
-                    rButton1.setSelected(true);
+                if(optionList.indexOf(tmp) == 0){
+                    option1.setSelected(true);
                 }
-                if(vector2.indexOf(str) == 1){
-                    rButton2.setSelected(true);
+                if(optionList.indexOf(tmp) == 1){
+                    option2.setSelected(true);
                 }
-                if(vector2.indexOf(str) == 2){
-                    rButton3.setSelected(true);
+                if(optionList.indexOf(tmp) == 2){
+                    option3.setSelected(true);
                 }
             }
         });
 
         hBox.setPadding(new Insets(15, 20, 20, 12));
-        hBox.getChildren().addAll(textField3, rButton1, rButton2, rButton3, button4);
+        hBox.getChildren().addAll(nameField, option1, option2, option3, chooseButton);
         hBox.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         hBox.setSpacing(10);
     }
